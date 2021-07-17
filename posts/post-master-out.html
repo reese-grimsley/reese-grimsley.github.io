@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<!--
+	Read Only by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>RG - Mastering Out</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+				<p><a href="../index.html">Back to home</a></p>	
+
+				<header>
+
+					<span class="image avatar"><img src="../images/avatar.jpg"/></span>
+					<!-- <h1 id="logo"><a href="#">Reese Grimsley</a></h1>
+					<p>Ph.D. Student at Carnegie Mellon<br />
+					Time-sensitive IoT</p> -->
+					<p >
+						<strong>Mastering Out of My PhD<br></strong>
+					</p>
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#intro" class="active">A Career Change</a></li>
+						<li><a href="#leaving">Leaving this Stage</a></li>
+						<li><a href="#entering">Entering the Next</a></li>
+						<li><a href="#perspective">Perspective in Post</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<!-- <ul class="icons">
+						<li><a href="https://github.com/reese-grimsley" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="mailto:reeseg@cmu.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+					</ul> -->
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="intro">
+								<div class="image main" data-position="center">
+									<img src="../images/Bow-Medicene_Routt_Ntl_Forest.jpg" />
+								</div>
+								<div class="container">
+									<p style="font-size:100%"">
+										This post is not done. Go away. The decision I made
+									</p>
+								</div>
+							</section>
+	
+							<section id="leaving">
+									<div class="container">
+										<h3>Closing this Chapter of my Career</h3>
+										<p style="font-size:80%;">
+											This competition served as a showcase for the ongoing development of <a href="http://ccsg.ece.cmu.edu/ttpython/index.html">TickTalk Python (TTPython)</a>, a programming framework for distributed, time-sensitive applications in cyber physical systems. Our framework is designed to simplify the development of such applications by building timing and distributed systems abstractions into a domain-specific language and dataflow graph based runtime environment 
+											<br><br>
+											Our <a href="https://labs.engineering.asu.edu/mps-lab/">colleagues at Arizona State University</a> have strong roots in autonomous vehicles, but have seen several pain points in the development of a smart-intersection application, in which vehicles coordinate with a centralized controller to plan their path through the intersection on an individual basis rather than per street as normal stop-lights do. This application is demonstrated on a 1/10th scale version of an intersection using RC cars equipped with LIDAR, image sensors, and Nvidia Jetsons to perform SLaM and object detection CNNs in real-time. Most application code is written in Python 3, although the CNN, SLaM, and sensor/actuator manipulation invokes C/C++ routines.
+											
+											Distributed, time-sensitive applications are notoriously difficult to develop due to challenges with clock synchronization, inter-device coordination and communication, debugging, and more. Edward Andert, our smart-intersection expert at ASU, helped us understand these pain points and how they impact his ability to reason about the application. Ian McCormack (a then UG student at Wisconsin Eu Claire) and I developed networking and timing abstractions to alleviate issues with periodic sampling, network management, and sensor stream fusion. Our process and programming environment relies on a dataflow graph and message-passing architecture to improve composability and avoid side-effects due to memory sharing. These abstractions are written in Python 3 as well, such that they mesh well with existing application code.
+											<br><br>
+											These abstractions helped Edward find subtle issues within his implementation and reduce the end-to-end latency of his system by around 33% (125ms down to 88ms). The abstractions, particularly for sensor fusion, do come with an overhead, which our runtime instrumentation clocked at 5ms additional processing time along the critical path. We can safely ignore this effect for this application, but it does suggest a limit on how effective this strategy would be for applications whose timing requirements enter the low millisecond to microsecond regime.
+											<br><br>
+											As lead on this competition submission, I was responsible for setting the goals of our submission (and retuning them as we progressed), designing the architecture of our abstractions and their interaction with the existing smart-intersection application, facilitating integration of individuals' contributions, and designing the poster and presentation, which we gave as a team. 
+											<br><br>
+											Please see our presentation <a href="../documents/TTComp_Grimsley_Presentation.pdf">slides</a>, <a href="https://www.youtube.com/watch?v=e2-RXvouIJg">video</a>, and <a href="../documents/TTComp_Grimsley_Poster.pdf">poster</a>!
+										</p>
+	
+									</div>
+								</section>
+
+
+							<section id="entering"
+								<div class="container">
+									<!-- <header class="major"> -->
+										<h3>Beginning a New Chapter</h3>
+
+									<!-- </header> -->
+
+								</div>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; Reese Grimsley. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

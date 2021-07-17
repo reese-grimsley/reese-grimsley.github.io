@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<!--
+	Read Only by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>RG - TickTalk Competition</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+				<p><a href="../index.html">Back to home</a></p>	
+
+				<header>
+
+					<span class="image sidebar"><img src="../images/TTComp_Plaque.jpg"alt="Our Award Plaque" style="width:80%;height:80%"/></span>
+					<!-- <h1 id="logo"><a href="#">Reese Grimsley</a></h1>
+					<p>Ph.D. Student at Carnegie Mellon<br />
+					Time-sensitive IoT</p> -->
+					<p >
+						<strong> Distributed, Time-Sensitive Applications with TickTalk Python<br></strong>
+					</p>
+					<p style="font-size:smaller">
+						My Team's 2nd Place Entry to the CPS Week Networked Computing on the Edge Student Design Competition
+					</p>
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#intro" class="active">Student Design Competition</a></li>
+						<li><a href="#submission">Our Submission</a></li>
+						<li><a href="#tt">What is TickTalk?</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<!-- <ul class="icons">
+						<li><a href="https://github.com/reese-grimsley" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="mailto:reeseg@cmu.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+					</ul> -->
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="intro">
+								<div class="image main" data-position="center">
+									<img src="../images/TTComp_intersection.png" />
+								</div>
+								<div class="container">
+									<p style="font-size:100%"">
+										The first two years of my Ph.D. have largely revolved around <a href="https://nsf.gov/awardsearch/showAward?AWD_ID=1646235&HistoricalAwards=false">TickTalk </a>, an NSF grant dedicated to developing timing APIs to simplify the development of federated, time-sensitive cyber physical systems. 
+										<br><br>
+										In May of 2021, I lead our team to win second place in a <a href="https://smile-sdsu.github.io/cps_iot/"">student design competition</a> hosted by <a href="https://cps-iot-week2021.isis.vanderbilt.edu/index.html">CPS-IoT Week</a>, which hosts the primier conferences for cyber physical systems, sensor networks, and Internet of Things. The competition's focus was on Networked Computing on the Edge, and was hosted in collaboration with Nvidia, who graciously provided us a few Jetson TX2 development kits. Suffice to say, receiving this award is a great honor! 
+									</p>
+								</div>
+							</section>
+	
+							<section id="submission">
+									<div class="container">
+										<h3>Our Submission to the <br>CPS-Week Student Design Competition</h3>
+										<p style="font-size:80%;">
+											This competition served as a showcase for the ongoing development of <a href="http://ccsg.ece.cmu.edu/ttpython/index.html">TickTalk Python (TTPython)</a>, a programming framework for distributed, time-sensitive applications in cyber physical systems. Our framework is designed to simplify the development of such applications by building timing and distributed systems abstractions into a domain-specific language and dataflow graph based runtime environment 
+											<br><br>
+											Our <a href="https://labs.engineering.asu.edu/mps-lab/">colleagues at Arizona State University</a> have strong roots in autonomous vehicles, but have seen several pain points in the development of a smart-intersection application, in which vehicles coordinate with a centralized controller to plan their path through the intersection on an individual basis rather than per street as normal stop-lights do. This application is demonstrated on a 1/10th scale version of an intersection using RC cars equipped with LIDAR, image sensors, and Nvidia Jetsons to perform SLaM and object detection CNNs in real-time. Most application code is written in Python 3, although the CNN, SLaM, and sensor/actuator manipulation invokes C/C++ routines.
+											
+											Distributed, time-sensitive applications are notoriously difficult to develop due to challenges with clock synchronization, inter-device coordination and communication, debugging, and more. Edward Andert, our smart-intersection expert at ASU, helped us understand these pain points and how they impact his ability to reason about the application. Ian McCormack (a then UG student at Wisconsin Eu Claire) and I developed networking and timing abstractions to alleviate issues with periodic sampling, network management, and sensor stream fusion. Our process and programming environment relies on a dataflow graph and message-passing architecture to improve composability and avoid side-effects due to memory sharing. These abstractions are written in Python 3 as well, such that they mesh well with existing application code.
+											<br><br>
+											These abstractions helped Edward find subtle issues within his implementation and reduce the end-to-end latency of his system by around 33% (125ms down to 88ms). The abstractions, particularly for sensor fusion, do come with an overhead, which our runtime instrumentation clocked at 5ms additional processing time along the critical path. We can safely ignore this effect for this application, but it does suggest a limit on how effective this strategy would be for applications whose timing requirements enter the low millisecond to microsecond regime.
+											<br><br>
+											As lead on this competition submission, I was responsible for setting the goals of our submission (and retuning them as we progressed), designing the architecture of our abstractions and their interaction with the existing smart-intersection application, facilitating integration of individuals' contributions, and designing the poster and presentation, which we gave as a team. 
+											<br><br>
+											Please see our presentation <a href="../documents/TTComp_Grimsley_Presentation.pdf">slides</a>, <a href="https://www.youtube.com/watch?v=e2-RXvouIJg">video</a>, and <a href="../documents/TTComp_Grimsley_Poster.pdf">poster</a>!
+										</p>
+	
+									</div>
+								</section>
+
+
+							<section id="tt"
+								<div class="container">
+									<!-- <header class="major"> -->
+										<h3>Wait, But What <i>is</i> TickTalk?</h3>
+										<p style="font-size:80%;">
+											No, it's not related to the now-mainstream video-sharing platform! The grant was written before ByteDance rebranded the platform...
+											<br><br>
+											TickTalk is all about simplifying development of time-sensitive applications for cyber-physical systems. As the IoT burgeons, more distributed, heterogeneous applications become feasible. However, the tools to handle the distributed parts of these applications are largely unchanged or nonexistent. Each device (or device type) has custom code to control its node-local behavior, and each interface (both in the application and network) is uniquely designed and tested. Protocols like COAP help standardize the format, but say nothing about behavior at the application level. Any system containing more than a few device types requires a team of experts to manage the interfaces (which scale with N<sup>2</sup> for N devices).
+											<br><br>
+											TickTalk's long-sighted vision is to enable a more holistic programming interface, where the user declares <i>what</i> they want to happen, but relieve the user of dictating <i>how</i> that must happen. A fundamental component is simplifying the user's interaction with timing, which includes both data and control aspects for time-series, sampled data and coordinated action with the physical environment, respectively. Managing these timing requirements in the distributed context is challenging to reason about and debug, largely due to clock synchronization errors, reproducibility (related in part to best-efforts networking), and observability.
+											<br><br>
+											TickTalk Python is our attempt to see this vision through, by presenting a Python-based coordination language that includes meta-syntax to help describe where code runs in a system and what types of time-based control (such as periodic sampling or deadlines on actuation). This glue language compiles into a dataflow graph that can be mapped onto the system per user requirements and objective functions like end-to-end latency. The nodes in the graph contain abstractions for synchronizing inputs (cognizant of synchronized clocks), executing user code, and forwarding output data to whichever device contains the next node in the graph.
+											<br><br>
+											My contributions have centered largely on the model of computing, <i>i.e.,</i> dataflow, and timing abstractions that account for clock synchronization error and data validity. This has served as a fantastic learning experience in the field of distributed, real-time systems, as I delved into message-passing architectures (like dataflow process networks and petri nets) and real-time systems architectures (like the Time-Trigged Architecture and PTIDES/PTOLEMY). I have a great deal of respect for Dr. Edward Lee's work in Cyber Physical Systems.
+										</p>	
+									<!-- </header> -->
+
+								</div>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; Reese Grimsley. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

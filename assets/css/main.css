@@ -2198,6 +2198,17 @@ input, select, textarea {
 				width: 100%;
 			}
 
+		.image.sidebar {
+				overflow: hidden;
+			}
+	
+				.image.sidebar img {
+					display: block;
+					width: 100%;
+					margin-left: auto;
+					margin-right: auto;
+				}
+
 		.image.main {
 			display: block;
 			height: 20em;
