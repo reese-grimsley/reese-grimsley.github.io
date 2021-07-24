@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>RG - Mastering Out</title>
+		<title>RG - Common Sense</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
@@ -16,30 +16,27 @@
 		<!-- Header -->
 			<section id="header">
 				<p><a href="../index.html">Back to home</a></p>	
-
 				<header>
-
-					<span class="image avatar"><img src="../images/avatar.jpg"/></span>
-					<!-- <h1 id="logo"><a href="#">Reese Grimsley</a></h1>
-					<p>Ph.D. Student at Carnegie Mellon<br />
-					Time-sensitive IoT</p> -->
+					<span class="image sidebar"><img src="../images/main+debug.jpg " style="width:50%;height:50%"/></span>
 					<p >
-						<strong>Mastering Out of My PhD<br></strong>
+						<strong>CommonSense Low-Power IoT Sensing Prototype Architecture<br></strong>
 					</p>
 				</header>
 				<nav id="nav">
 					<ul>
-						<li><a href="#intro" class="active">A Career Change</a></li>
-						<li><a href="#leaving">Leaving this Stage</a></li>
-						<li><a href="#entering">Entering the Next</a></li>
-						<li><a href="#perspective">Perspective in Post</a></li>
+						<li><a href="#concept">A Sensical Concept</a></li>
+						<li><a href="#design">Design Experiences</a></li>
+						<li><a href="#build">Building and Testing</a></li>
+						<li><a href="#firmware">Firmware Framework</a></li>
+						<li><a href="#trafficnnode">TinyML on CommonSense</a></li>
+						<li><a href="#finalstate">The (Sad) Future of Reseach Prototypes</a></li>
 					</ul>
 				</nav>
 				<footer>
-					<!-- <ul class="icons">
-						<li><a href="https://github.com/reese-grimsley" class="icon brands fa-github"><span class="label">Github</span></a></li>
+					<ul class="icons">
+						<li><a href="https://github.com/reese-grimsley" class="fab fa-github"><span class="label"></span></a></li>
 						<li><a href="mailto:reeseg@cmu.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-					</ul> -->
+					</ul>
 				</footer>
 			</section>
 
@@ -50,58 +47,104 @@
 					<div id="main">
 
 						<!-- One -->
-							<section id="intro">
+							<section id="concept">
 								<div class="image main" data-position="center">
-									<img src="../images/Bow-Medicene_Routt_Ntl_Forest.jpg" />
+									<img src="../images/CS_stack_rev1_front.jpg" />
 								</div>
 								<div class="container">
+									<p style="font-size:120%">
+										<b>This post is not done. Go away. </b>
+									</p>
+
 									<p style="font-size:100%"">
-										This post is not done. Go away. The decision I made
+										<br><br><br>
+										CommonSense is a embedded hardware project that I ran within the Connected Embedded Systems Lab under Bob Iannucci at the CMU Silicon Valley Campus. In previous experiments with traffic and environmental sensing, Bob's group found that many of their hardware designs were at least 70% identical, leading to avoidable engineering effort as they redid much of the same work for each new design.
+										<br><br>
+										Conceptually, CommonSense was meant to reduce this engineering effort by having one PCB that hosted the application invariants, like the processor, power regulators, basic sensors (e.g., temperature & humidity), and another PCB (potentially multiple) that hosted the application specific hardware, like WiFi radios, SDI-12 transducer interfaces, audio output, etc. The goal was to separate design efforts and reuse as much as possible, including abstractions to help manage communication interfaces and power management.
+										<br><br>
+										If this sounds like most other hobbyist-friendly designs like Arduino, BeagleBone, or Raspberry Pi, that's because it is. However, we aimed to target ultra low-power applications (where a single battery must last months or years) and teach students how to develop these applications. The aforementioned designs are not well optimized for power, which was a major goal for our projects. Libelium has good ultra low-power turnkey solutions for sensors (WaspMotes), but we wanted more than an 8-bit microcontroller, especially since our favorite application was street-mounted sensors running neural nets for vehicle detection and classification.
+										<br><br>
+										We came up with a design that included 3+ vertically stacked boards. The 'brain' would be the main CommonSense board, with a solid low-power processor and interfaces galore. The app-specific 'daughter' boards would go on top, containing radios, sensors, and actuators, but should be stackable in any order without interrupting each other; our design allowed for several of these to be used. Finally, the 3rd 'debug' PCB would include power diagnostics and more convenient IO ports.
 									</p>
 								</div>
 							</section>
 	
-							<section id="leaving">
-									<div class="container">
-										<h3>Closing this Chapter of my Career</h3>
-										<p style="font-size:80%;">
-											This competition served as a showcase for the ongoing development of <a href="http://ccsg.ece.cmu.edu/ttpython/index.html">TickTalk Python (TTPython)</a>, a programming framework for distributed, time-sensitive applications in cyber physical systems. Our framework is designed to simplify the development of such applications by building timing and distributed systems abstractions into a domain-specific language and dataflow graph based runtime environment 
-											<br><br>
-											Our <a href="https://labs.engineering.asu.edu/mps-lab/">colleagues at Arizona State University</a> have strong roots in autonomous vehicles, but have seen several pain points in the development of a smart-intersection application, in which vehicles coordinate with a centralized controller to plan their path through the intersection on an individual basis rather than per street as normal stop-lights do. This application is demonstrated on a 1/10th scale version of an intersection using RC cars equipped with LIDAR, image sensors, and Nvidia Jetsons to perform SLaM and object detection CNNs in real-time. Most application code is written in Python 3, although the CNN, SLaM, and sensor/actuator manipulation invokes C/C++ routines.
-											
-											Distributed, time-sensitive applications are notoriously difficult to develop due to challenges with clock synchronization, inter-device coordination and communication, debugging, and more. Edward Andert, our smart-intersection expert at ASU, helped us understand these pain points and how they impact his ability to reason about the application. Ian McCormack (a then UG student at Wisconsin Eu Claire) and I developed networking and timing abstractions to alleviate issues with periodic sampling, network management, and sensor stream fusion. Our process and programming environment relies on a dataflow graph and message-passing architecture to improve composability and avoid side-effects due to memory sharing. These abstractions are written in Python 3 as well, such that they mesh well with existing application code.
-											<br><br>
-											These abstractions helped Edward find subtle issues within his implementation and reduce the end-to-end latency of his system by around 33% (125ms down to 88ms). The abstractions, particularly for sensor fusion, do come with an overhead, which our runtime instrumentation clocked at 5ms additional processing time along the critical path. We can safely ignore this effect for this application, but it does suggest a limit on how effective this strategy would be for applications whose timing requirements enter the low millisecond to microsecond regime.
-											<br><br>
-											As lead on this competition submission, I was responsible for setting the goals of our submission (and retuning them as we progressed), designing the architecture of our abstractions and their interaction with the existing smart-intersection application, facilitating integration of individuals' contributions, and designing the poster and presentation, which we gave as a team. 
-											<br><br>
-											Please see our presentation <a href="../documents/TTComp_Grimsley_Presentation.pdf">slides</a>, <a href="https://www.youtube.com/watch?v=e2-RXvouIJg">video</a>, and <a href="../documents/TTComp_Grimsley_Poster.pdf">poster</a>!
-										</p>
-	
-									</div>
-								</section>
-
-
-							<section id="entering"
+							<section id="design">
 								<div class="container">
-									<!-- <header class="major"> -->
-										<h3>Beginning a New Chapter</h3>
+									<h3>Design Experiences</h3>
+									<p style="font-size:80%;">
+										I could speak at great length about the CommonSense design and the process &mdash; this was my first real hardware design. I'll aim for brevity in describing my experiences and lessons when doing the initial designs.
+										<br><br>
+										On its own, the main CommonSense board was very simple: voltage input, a regulator, a processor (a Atmel D51 Cortex M4F), a couple of sensors, and external FLASH. Simple. 
+										<br><br>
+										Yet, the need to interface with multiple app-specific boards meant the interfaces needed much forethought. The D51 processor has a series of 8 reconfigurable serial buses that could switch between SPI, I2C, and USART easily, but not all pins are created equal - this required a great deal of attention (read, finagling) to expose 4 entirely flexible buses to the stacked app-specific cards, 2 for more generic internal use, and 2 to the debugging board.
+										<br><br>
+										Another interesting component in this design was to include current sensing such that the attached debug board, based on the <a href="http://ccsg.ece.cmu.edu/wiki/doku.php?id=public:powerdue:home">PowerDue</a> could apply its high-side current monitoring to each of the 4 voltage rails (processor, storage, and 2 for daughter boards). In reality, this mainly involved including shunt resistors on the main board and connecting a trace from each side to board-to-board interace such they both inputs could be connected to the differential amplifier within the current monitor.
+										<br><br> 
+										The mechanical mounting was also important to get right in this scenario, since we needed low-pitch (.4mm) mezzanine connectors to pass signals between the main board and the debug/daughter board. We needed low-profile connectors to save space, but these provide poor mechanical strength, so I opted to also allocate space for fasteners. This worked well in practice, but finding small screws/standoffs of the right length is surprisingly difficult.
+										<br><br> 
+										Altogether, I enjoyed the design phase, in particular, doing PCB layouts since it is much like solving a puzzle
+									</p>
+								</div>
+							</section>
 
-									<!-- </header> -->
 
+							<section id="build">
+								<div class="container">
+								<h3>Building and Testing</h3>
+								<p style="font-size:80%;">
+									The obvious next stage of the project was having boards produced, assembled, and tested. In total, I did 3 revisions of the main board, 2 of the debug board, and another PhD student in our group did 2 revisions of a daughter board. 
+									<br><br>
+									In the first version of CommonSense, I hand-populated 2 boards and did the basic testing to ensure it worked. It did, but designing a board with 50 0402-sized passive components may not have been the wisest decision for someone with limited SMD experience. To be fair, this gave me plenty of experience for future rework on this project and others. After that version of the board, we switched the processor to a BGA form factor, at which point hand-assembly was far from ideal. In each version of the board, the basic mode of operation was a complete success &mdash; the processor booted and responded perfectly to the JTAG interface. 
+									<br><br>
+									Not everything was perfect, of course. I learned quickly that easily-accessible test points are massively useful for checking voltages at key points in the board, like regulator input/outputs and serial buses. I would later find that to achieve low-power operation, a MOSFET-based power switch used to preferentially power the board via the debug-board connector should not be present &mdash; too much static loss for low micro-amp sleep-state! By revision 3, the sleep state current for this main board was down to 35 &mu; with RAM retention
+									<br><br>
+									I also hand-populated the first revision of the debug boards, which easily contained over 100 parts. Producing 3 of these without a pick-and-place machine or an oven was very time consuming, but I certainly improved my skills with an iron and a heat gun. This was 3 months into the COVID-19 pandemic, and my living room was converted into a SMD workstation. Some of my prouder moments include building series/parallel resistor chains from 0402s to cover up for my limited supply of parts. 
+									<br><br>
+									In general, the debug boards worked too, but a few simple errors with missing pull-up/pull-down resistors and swapped D+/D- USB pins lengthed the functional tests. However, a fun lesson was in the current monitoring: the debug board included 4 high side current monitors to look at power consumption of the main board. The output was read by another microcontroller and sent to a serial port via USB to an interface reminiscent of an o-scope. However, instead of a clean signal showing the expected 20mA in active state, it was a nasty mess; noise everywhere. The problem? A switch-mode (buck-boost) voltage regulator on the main board whose 200mV pk-pk swings ran at frequencies lower that the cutoff (dependent on output current). When I swapped to an LDO, the problems vanished. Lesson: switch mode regulators are efficient, but the transients are not negligible for anything analog.
+									<br><br>
+									Since I did not design nor extensively test the daughter boards, I won't speak to that side of this project, but building and testing the hardware I <i>did</i> design was a huge learning experience.
+								</p>
+								</div>
+							</section>
+
+							<section id="firmware">
+								<div class="container">
+									<h3>Firmware Framework</h3>
+									<p style="font-size:80%;">
+										.
+									</p>
+								</div>
+							</section>
+
+							<section id="trafficnode">
+								<div class="container">
+									<h3>TinyML on CommonSense: The TrafficNNode</h3>
+									<p style="font-size:80%;">
+										.
+									</p>
+								</div>
+							</section>
+
+							<section id="finalstate">
+								<div class="container">
+									<h3>The (Sad) Future of Reseach Prototypes</h3>
+									<p style="font-size:80%;">
+										.
+									</p>
 								</div>
 							</section>
 
 					</div>
 
 				<!-- Footer -->
-					<section id="footer">
+					<!-- <section id="footer">
 						<div class="container">
 							<ul class="copyright">
 								<li>&copy; Reese Grimsley. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 							</ul>
 						</div>
-					</section>
+					</section> -->
 
 			</div>
 
