@@ -65,17 +65,7 @@
 									<div class="container">
 										<h3>Closing this Chapter of my Career</h3>
 										<p style="font-size:80%;">
-											This competition served as a showcase for the ongoing development of <a href="http://ccsg.ece.cmu.edu/ttpython/index.html">TickTalk Python (TTPython)</a>, a programming framework for distributed, time-sensitive applications in cyber physical systems. Our framework is designed to simplify the development of such applications by building timing and distributed systems abstractions into a domain-specific language and dataflow graph based runtime environment 
-											<br><br>
-											Our <a href="https://labs.engineering.asu.edu/mps-lab/">colleagues at Arizona State University</a> have strong roots in autonomous vehicles, but have seen several pain points in the development of a smart-intersection application, in which vehicles coordinate with a centralized controller to plan their path through the intersection on an individual basis rather than per street as normal stop-lights do. This application is demonstrated on a 1/10th scale version of an intersection using RC cars equipped with LIDAR, image sensors, and Nvidia Jetsons to perform SLaM and object detection CNNs in real-time. Most application code is written in Python 3, although the CNN, SLaM, and sensor/actuator manipulation invokes C/C++ routines.
-											
-											Distributed, time-sensitive applications are notoriously difficult to develop due to challenges with clock synchronization, inter-device coordination and communication, debugging, and more. Edward Andert, our smart-intersection expert at ASU, helped us understand these pain points and how they impact his ability to reason about the application. Ian McCormack (a then UG student at Wisconsin Eu Claire) and I developed networking and timing abstractions to alleviate issues with periodic sampling, network management, and sensor stream fusion. Our process and programming environment relies on a dataflow graph and message-passing architecture to improve composability and avoid side-effects due to memory sharing. These abstractions are written in Python 3 as well, such that they mesh well with existing application code.
-											<br><br>
-											These abstractions helped Edward find subtle issues within his implementation and reduce the end-to-end latency of his system by around 33% (125ms down to 88ms). The abstractions, particularly for sensor fusion, do come with an overhead, which our runtime instrumentation clocked at 5ms additional processing time along the critical path. We can safely ignore this effect for this application, but it does suggest a limit on how effective this strategy would be for applications whose timing requirements enter the low millisecond to microsecond regime.
-											<br><br>
-											As lead on this competition submission, I was responsible for setting the goals of our submission (and retuning them as we progressed), designing the architecture of our abstractions and their interaction with the existing smart-intersection application, facilitating integration of individuals' contributions, and designing the poster and presentation, which we gave as a team. 
-											<br><br>
-											Please see our presentation <a href="../documents/TTComp_Grimsley_Presentation.pdf">slides</a>, <a href="https://www.youtube.com/watch?v=e2-RXvouIJg">video</a>, and <a href="../documents/TTComp_Grimsley_Poster.pdf">poster</a>!
+
 										</p>
 	
 									</div>
