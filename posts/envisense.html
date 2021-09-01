@@ -24,8 +24,9 @@
 				</header>
 				<nav id="nav">
 					<ul>
-						<li><a href="#x">x</a></li>
-						<li><a href="#y">y</a></li>
+						<li><a href="#overview">EnviSense</a></li>
+						<li><a href="#contributions">My Contributions</a></li>
+						<li><a href="#lessons">Lessons</a></li>
 					</ul>
 				</nav>
 				<footer>
@@ -43,23 +44,62 @@
 					<div id="main">
 
 						<!-- One -->
-							<section id="x">
+							<section id="overview">
 								<div class="image main" data-position="center">
 									<img src="../images/PW_highhill.jpg" />
 								</div>
 								<div class="container">
-									<h3>x</h3>
-									<p style="font-size:100%"">
+									<h2>EnviSense</h2>
+									<p style="font-size:80%"">
                                         This post is not done. Go away.
+										<br>
+										In the first two years of grad school, a solid chunk of my time went to EnviSense, an environmental sensing project with the U.S. Geological Survey (USGS). The research group I joined had a long-standing relationship with the USGS, in which they were updating existing water stream gages in Northern California to use battery-operated sensors connected via LoRaWAN.
+										<br><br>
+										Our main contact at the USGS, Matt Marineau, saw opportunity to upgrade their sensors, particularly in how they retrieve information and modify sensor behavior. Existing sensors either log all measurements, like stream height, water pH, soil moisture content, etc. to an SD that must be retrieved months later or uplink all measurements over a one-way satellite link. In both cases, there is no way to configure what the sensors measure and how often. 
+										<br><br>
+										When power is widely available, it's no biggie. There's little penalty to collecting everything possible. The modern data deluge is of no importance on single-dimension time-series signals sampled every 30 seconds, at most. But sensors beneath a canopy of trees 10 miles from the nearest powerline play a different game. Every extra sample-and-send means a technician has to trek through the brush and bugs to replace a battery a bit sooner, and this isn't free. Some sites may allow solar or other energy harvesting, but that is not always sufficient (or cost effective) to power the sensor. Instead, we'd like a way to modify sensor behavior over-the-air to optimize between data quality (value) and sensor lifetime (expense). This is especially true when the qualities of interest, like rapid stream changes due to rainfall, only happen when, well, it rains. We can use predictions like weather forecasts to determine how to modulate how sensors sense the environment!
+										<br><br>
+										This main idea of remote reprogramming was a huge focus throughout my two years on the project. However, many of these ideas have been explored in wireless sensor networking communities already, and as such, the opportunity for novel research was limited &mdash; this was 'just engineering'. No less, systems like these are a good bridge between academic research and industry adoption &mdash; it is an exercise in systems engineering, and while the research aspect of this could have been 'more ambitious' as some said, there were noteworthy, extant aspects of the EnviSense that I believed warranted a <a href="../documents/LP_IoT_EnviSense.pdf">paper in a low-power IoT workshop</a> before pushing for anything truly novel. I view the linked paper as description of good systems architecting for an LPWAN-enabled environmental system. 
+										<br><br>
 									</p>
 								</div>
 							</section>
 	
-							<section id="y">
+							<section id="contributions">
 								<div class="container">
-									<h3>y</h3>
+									<h3>My Contributions</h3>
 									<p style="font-size:80%;">
+										I cannot and will not claim that the EnviSense system was my design and implementation. A vast majority of the credit goes to Bob Iannucci (and several students in one of his courses, in which they designed the overall architecture and first versions of the system) -- his systems engineering expertise was valuable in ways I cannot explain. I'm grateful to have worked on him with this project, as I learned countless lessons in systems engineering (and would love to continue archtitecting, designing, and implementing systems like this in urban, industrial, and/or environmental domains). Nonetheless, I'll speak to the contriubtions I <i>did</i> make. NB: The list isn't exhaustive because most aren't interesting. 
+										<br><br>
+									</p>
+									<h5>Remote Reprogramming</h5>
+									<p>
+										EnviSense's version of remote reprogramming was conceptually very simple (and designed and implemented before my time) &mdash; basically, sensors sampled according to a short set of commands that dictated what and when to sample and uplink over LoRaWAN. These schedules fit into a single LoRaWAN downlink message (a malnourished 50 bytes under reasonable network conditions), and tell the sensor what it will do within an hour. Again, this was implemented before I arrived on the scene.
+										<br><br>
+										My contributions to this part of system involved extending it to implement multiple schedules to let USGS personnel swap between those locally stored schedules without constantly downloading new ones (burning energy in the process &mdash; LoRa may be low power, but the energy cost per bit is quite high. The LP and WAN are separate in the MAC layer and PHY layer characteristics, respectively). Swapping these schedules is was quite simple. Most of the building blocks were already there within the production level system. The harder part was in adding this feature was in the server-side, which stores versioned schedules in a SQL database and serves them in an application server configured to run when the EnviSense sensor uplinks the right messages over the network. More pointedly, adding this feature without confusing or breaking any deployed sensors whose firmware could not be updated. After doing the math, this change with multiple schedules has the potential to improve battery life by about 350% while still producing the same quality data when it counts (assuming weather predictions are accurate, which may be a LongSHoT).
+										<br><br>
+										Another, simpler contribution was in upgrading the SDI-12 firmware to optimize how many and how custom the sensing schedule needed to be for EnviSense devices with multiple SDI-12 transducers attached. SDI-12 is no more than common interface for environmental sensors; the USGS uses lots of these sensors, partially because multilple can be connected to the same wires. For example, they wanted soil moisture probes and multiple depths, all connected to one EnviSense. I implemented a portion of the remote programming interface so they could read 'everything but the kitchen sink' (naming credit goes to Bob, as he did something similar to the auxiliary sensors on the PCB). 
+									</p>
+									<h5>LoRa Survey</h5>
+										LoRaWAN is an example of a low-power wide area network. Networks can span several miles, and end-devices can last for months or years &mdash; networks like cellular work poorly for low power because they require frequent check-ins to the network infrastructure, whereas LoRaWAN does not. The range of the network is simply based on the form of the physical signal (the modulation); chirp-spread spectrum is resilient to noise and multipath such that it can be retrieved even below the noise floor (especially when modulated vveeerrryyy slowly). It's also nice because network hardware is cheap enough to create your own network in public-access frequency bands such that it can be used almost anywhere.
+										<br><br>
+										Yet, setting up your own network is hard. Engineers have dedicated their careers to configuring cellular networks. Assuring service to many devices requires the right kind of planning. For the EnviSense system, I enabled this on the sensors themselves, which already had GPS and LoRa radios, such that the sensors could be carried to prospective sensing sites and have their GPS coordinates and signal quality measured, logged (and if connected to the network, uplink that info for real-time feedback).
+										**FINISH** lora Survey
+										<br><br>
+										APIs and Web-page (including a small screenshot)
+									</p>
+								</div>
+							</section>
 
+							<section id="lessons">
+								<div class="container">
+									<h3>Lessons About Sensor Networks and Systems Engineering</h3>
+									<p style="font-size:80%;">
+										First chance at a distributed system; issues in one part cascade into another. Reliability, Tracking bugs -- need instrumentation
+										<br>
+										Maintainable code and working with legacy system. Introducing new features with minimal new mechanisms and hacks
+										<br>
+										Working with a customer (USGS), documenting/demonstrating/supporting
 									</p>
 								</div>
 							</section>
