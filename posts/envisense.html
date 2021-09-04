@@ -15,7 +15,7 @@
 
 		<!-- Header -->
 			<section id="header">
-				<p><a href="../index.html">Back to home</a></p>	
+				<p><br><a href="../index.html">Back to home</a></p>	
 				<header>
 					<span class="image sidebar"><img src="../images/envisense.png " style="width:50%;height:50%"/></span>
 					<p >
@@ -51,7 +51,6 @@
 								<div class="container">
 									<h2>EnviSense</h2>
 									<p style="font-size:80%"">
-                                        This post is not done. Go away.
 										<br>
 										In the first two years of grad school, a solid chunk of my time went to EnviSense, an environmental sensing project with the U.S. Geological Survey (USGS). The research group I joined had a long-standing relationship with the USGS, in which they were updating existing water stream gages in Northern California to use battery-operated sensors connected via LoRaWAN.
 										<br><br>
@@ -59,7 +58,7 @@
 										<br><br>
 										When power is widely available, it's no biggie. There's little penalty to collecting everything possible. The modern data deluge is of no importance on single-dimension time-series signals sampled every 30 seconds, at most. But sensors beneath a canopy of trees 10 miles from the nearest powerline play a different game. Every extra sample-and-send means a technician has to trek through the brush and bugs to replace a battery a bit sooner, and this isn't free. Some sites may allow solar or other energy harvesting, but that is not always sufficient (or cost effective) to power the sensor. Instead, we'd like a way to modify sensor behavior over-the-air to optimize between data quality (value) and sensor lifetime (expense). This is especially true when the qualities of interest, like rapid stream changes due to rainfall, only happen when, well, it rains. We can use predictions like weather forecasts to determine how to modulate how sensors sense the environment!
 										<br><br>
-										This main idea of remote reprogramming was a huge focus throughout my two years on the project. However, many of these ideas have been explored in wireless sensor networking communities already, and as such, the opportunity for novel research was limited &mdash; this was 'just engineering'. No less, systems like these are a good bridge between academic research and industry adoption &mdash; it is an exercise in systems engineering, and while the research aspect of this could have been 'more ambitious' as some said, there were noteworthy, extant aspects of the EnviSense that I believed warranted a <a href="../documents/LP_IoT_EnviSense.pdf">paper in a low-power IoT workshop</a> before pushing for anything truly novel. I view the linked paper as description of good systems architecting for an LPWAN-enabled environmental system. 
+										This main idea of remote reprogramming was a huge focus throughout my two years on the project. However, many of these ideas have been explored in wireless sensor networking communities already, and as such, the opportunity for novel research was limited &mdash; this was 'just engineering'. No less, systems like these are a good bridge between academic research and industry adoption &mdash; it is an exercise in systems engineering, and while the research aspect of this could have been 'more ambitious' as some said, there were noteworthy, extant aspects of the EnviSense that I believed warranted a <a href="../documents/LP_IoT_EnviSense.pdf">paper in a low-power IoT workshop</a> before pushing for anything truly novel. I view the linked paper as description of good systems architecting for an LPWAN-enabled environmental sensing system. 
 										<br><br>
 									</p>
 								</div>
@@ -69,7 +68,7 @@
 								<div class="container">
 									<h3>My Contributions</h3>
 									<p style="font-size:80%;">
-										I cannot and will not claim that the EnviSense system was my design and implementation. A vast majority of the credit goes to Bob Iannucci (and several students in one of his courses, in which they designed the overall architecture and first versions of the system) -- his systems engineering expertise was valuable in ways I cannot explain. I'm grateful to have worked on him with this project, as I learned countless lessons in systems engineering (and would love to continue archtitecting, designing, and implementing systems like this in urban, industrial, and/or environmental domains). Nonetheless, I'll speak to the contriubtions I <i>did</i> make. NB: The list isn't exhaustive because most aren't interesting. 
+										I cannot and will not claim that the EnviSense system was entirely my design and implementation. A vast majority of the credit goes to Bob Iannucci (and several students in one of his courses, in which they designed the overall architecture and first versions of the system) -- his systems engineering expertise was valuable in ways I cannot explain. I'm grateful to have worked on him with this project, as I learned countless lessons in systems engineering (and would love to continue archtitecting, designing, and implementing systems like this in urban, industrial, and/or environmental domains). Nonetheless, I'll speak to the contriubtions I <i>did</i> make. NB: The list isn't exhaustive because most aren't interesting. 
 										<br><br>
 									</p>
 									<h5>Remote Reprogramming</h5>
@@ -81,13 +80,28 @@
 										Another, simpler contribution was in upgrading the SDI-12 firmware to optimize how many and how custom the sensing schedule needed to be for EnviSense devices with multiple SDI-12 transducers attached. SDI-12 is no more than common interface for environmental sensors; the USGS uses lots of these sensors, partially because multilple can be connected to the same wires. For example, they wanted soil moisture probes and multiple depths, all connected to one EnviSense. I implemented a portion of the remote programming interface so they could read 'everything but the kitchen sink' (naming credit goes to Bob, as he did something similar to the auxiliary sensors on the PCB). 
 									</p>
 									<h5>LoRa Survey</h5>
-										LoRaWAN is an example of a low-power wide area network. Networks can span several miles, and end-devices can last for months or years &mdash; networks like cellular work poorly for low power because they require frequent check-ins to the network infrastructure, whereas LoRaWAN does not. The range of the network is simply based on the form of the physical signal (the modulation); chirp-spread spectrum is resilient to noise and multipath such that it can be retrieved even below the noise floor (especially when modulated vveeerrryyy slowly). It's also nice because network hardware is cheap enough to create your own network in public-access frequency bands such that it can be used almost anywhere.
+									<p style="font-size: 80%;">
+										LoRaWAN is an example of a low-power wide area network. Networks can span several miles, and end-devices can last for months or years &mdash; networks like cellular work poorly for low power because they require frequent check-ins to the network infrastructure, whereas LoRaWAN does not. The range of the network is simply based on the form of the physical signal (the modulation); chirp-spread spectrum is resilient to noise and multipath such that it can be retrieved even below the noise floor (especially when modulated vveeerrryyy slowly). It's also nice because network hardware is cheap enough to create your own network in public-access frequency bands such that it can be used almost anywhere (cellular would require the provider to install a base station &mdash; not cheap!).
 										<br><br>
-										Yet, setting up your own network is hard. Engineers have dedicated their careers to configuring cellular networks. Assuring service to many devices requires the right kind of planning. For the EnviSense system, I enabled this on the sensors themselves, which already had GPS and LoRa radios, such that the sensors could be carried to prospective sensing sites and have their GPS coordinates and signal quality measured, logged (and if connected to the network, uplink that info for real-time feedback).
-										**FINISH** lora Survey
+										Yet, setting up your own network is hard. Engineers have dedicated their careers to configuring cellular networks. Assuring service to many devices requires complex planning to use the minimal amount of infrastruture (reducing cost) while providing an acceptable level of service to all connected devices. We'd like USGS technicians to be able to setup a gateway at some high elevation and explore the area with LoRaWAN receivers at prospective sensors sites, producing maps showing signal quality to help determine if those prospects are viable (for that gateway placement). For the EnviSense system, I enabled this on the sensors themselves, which already had GPS and LoRa radios, such that the sensors could be carried to prospective sensing sites and have their GPS coordinates and signal quality measured, logged (and if connected to the network, uplink that info for real-time feedback). 
 										<br><br>
-										APIs and Web-page (including a small screenshot)
+										I always love to reuse existing mechanisms in new ways, beyond their original intent. The remote programming mechanism I mentioned before was repurposed in exactly that way. I made a few additions to the features and functions within that scheduling to continuously read GPS coordinates and the most recent signal quality parameters (RSSI and SNR). That way, those location-sensitive quantities would be logged locally and uplinked over that LoRaWAN connection (where the latter can only occur if the wireless link is strong enough). With this tool, USGS personnel can conduct their own LoRa surveys with no additional hardware, such that they can see if prospective sensor deployment sites are accessible over a wireless link.
+										<br><br>
 									</p>
+									<h5>Programming APIs and Web-page</h5>
+
+									<p>
+										The Remote Programming mechanisms, for obvious reasons, extend further than the EnviSense hardware and firmware itself. All the information about these schedules is stored within the same server that responds to uplink requests and stores sensor data. Accessing that information is not particularly glamorous, though. It exists within a SQL database, and has a very basic user interface (via a PHP frontend, <a href="https://www.phpmyadmin.net/" >phpMyAdmin</a>) that is difficult for the uninitiated to navigate. My last contribution to the EnviSense project was an API and supporting webserver to help users program sets of EnviSense devices.
+										<br> 
+										<img src="../images/EnviSense-website.png" alt="EnviSense Programming Webpage" style="border:1px solid black" width="60%" height="60%"/>
+										<br>
+										I'll be the first to admit that it isn't the prettiest UI, but the intent was to provide a simpler interface that only exposes a few necessary functions. In short, USGS personnel would want to see which devices they have, what schedules they are running, write/update schedules, and register a new EnviSense. I created each of these functionalities (and plenty of other helper functions) within an API written in NodeJS that directly interacts with the SQL database and ChirpStack (the LoRaWAN service that runs MAC in the Cloud). The front-end was implemented using the ExpressJS web framework, and most of the buttons and selection elements produced some API call for the backend that would be populated with the proper information on return, accompanied by notification of success or failure for the user. 
+										<br><br>
+										Altogheter, this is a pretty straightforward tool, although it was the first I've done any real web programming. I had plenty to learn about the front-end/back-end interactions and how elements within a webpage are programmatically controlled. At the end of the day, I'm hopefult this will be (or at least the makings of) a useful tool for working with larger networks of EnviSense devices. Had I another 2-3 weeks to work on this project, I would have extended the API a bit more to also interact with meterological feeds such that these schedules updates could be automatically produced by changes in weather patterns, creating a fully autonomous, adapative sensing system. This is perhaps the most interesting technological aspect to the project, in my opinion as the tools can work together at the micro and macroscopic scale to optimize/trade-off data quality and cost. 
+
+										For anyone interested in actually seeing how it works, I produced a <a href=https://youtu.be/iqqBHtoFtcI>Demonstration Video</a>.
+									</p>
+
 								</div>
 							</section>
 
@@ -95,11 +109,15 @@
 								<div class="container">
 									<h3>Lessons About Sensor Networks and Systems Engineering</h3>
 									<p style="font-size:80%;">
-										First chance at a distributed system; issues in one part cascade into another. Reliability, Tracking bugs -- need instrumentation
-										<br>
-										Maintainable code and working with legacy system. Introducing new features with minimal new mechanisms and hacks
-										<br>
-										Working with a customer (USGS), documenting/demonstrating/supporting
+										I learned a great deal in this project, particularly about systems engineering. My ideal role in my career is a systems engineer, as I like to be engaged at the higher level of an engineering project, considering all the requirements and constraints to produce a dependable architecture that integrates all the low level pieces (which I'm certainly not afraid of building myself). Here, I'd like to point out a few of the salient lessons.
+										<br><br>
+										This was my first chance at working with a distributed system. Multiple sensors interact with the physical environment, communicate with gateways, which shuttle to and from servers with persistent data store and configuration information. One of the first things I learned here is that issues in one component often cascade into another, especially if care is not taken in their construction. For instance, a sensor requests a schedule &mdash; responding with an incorrectly formatted schedule is worse than responding with none at all, as it may put the end device into an unstable state (which could force a watchdog reset, muck up sensing behavior, or lead the device to quickly drain its battery). Isolation and error handling is essential to preventing a larger failure. Further, having instrumentation to detect faults and trace errors is essential to fixing them, which we often did through time-series data display (<a href="https://grafana.com/">Grafana</a>) and extensive local logging.
+										<br><br>
+										As I mentioned previously, I do not take credit for the majority of the implementation of this system. While I could ask questions to the designer who knew all the answers, I was nonetheless working with something resembling a legacy system in that it predated me, and I should not 'clean state' anything known to work (without good reason and discussion). This proved a valuable exercise in adopting coding style conventions consistent with the rest of the project so that anything I wrote would be maintainable after I left. I consider this a lesson in coding practices (a concept my undergraduate background as an electrical engineer did not cover). At Bob's behest, I followed a practice of 'economy of mechanism', meaning that existing, proven mechanisms should be reused without introducing new ones, while simulataneously avoiding 'hacks' to use them in dangerous ways. This practice is most evident in the improvements I made to the Remote Programming/Scheduling mechanisms.
+										<br><br>
+										This project was also my first chance working with a real customer, whereas previous internships and research projects lacked real interaction with an external party. As an engineer, I can think of all sorts of mechanisms and tools that are interesting or fun to create, but they have little use with no one to use them. A customer helps bring the lofty ideas down to earth, as they know (parts of) what they need, but not necessarily how to put them into practice. In this project, I was happy to find that this was not a one-way interaction where the customer says 'do this', and the engineers dutifully carry that out to the 'T', but rather, both parties work together to define the set of goals, requirements, and constraints so the system can be physically realized in accordance with those goals. Through this relationship, I became comfortable supporting the implementation with demonstration, documentation, and support. 
+										<br><br>
+										Altogether, I could not have asked for a better learning experience in systems engineering, especially when it got me out to the golden, rolling hills of Northern California. I look forward to carrying these lessons into future engineering projects.
 									</p>
 								</div>
 							</section>
@@ -109,13 +127,13 @@
 					</div>
 
 				<!-- Footer -->
-					<!-- <section id="footer">
+					<section id="footer">
 						<div class="container">
 							<ul class="copyright">
 								<li>&copy; Reese Grimsley. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 							</ul>
 						</div>
-					</section> -->
+					</section>
 
 			</div>
 

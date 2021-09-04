@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<!--
+	Read Only by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>RG - TickTalk Python</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<section id="header">
+
+				<header>
+					<p><a href="../index.html">Back to home</a><br><br></p>	
+					<span class="image avatar"><img src="../images/avatar.jpg" alt="" /></span>
+
+					<!-- <h1 id="logo"><a href="#">Reese Grimsley</a></h1>
+					<p>Ph.D. Student at Carnegie Mellon<br />
+					Time-sensitive IoT</p> -->
+					<p >
+						<strong> Distributed, Time-Sensitive Applications with TickTalk Python<br></strong>
+					</p>
+					<br>
+
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#intro" class="active">Intro</a></li>
+						<li><a href="#ttpython">TTPython</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<!-- <ul class="icons">
+						<li><a href="https://github.com/reese-grimsley" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="mailto:reeseg@cmu.edu" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+					</ul> -->
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="intro">
+								<div class="image main" data-position="center">
+									<img src="../images/ttgraph.png" />
+								</div>
+								<div class="container">
+									<p style="font-size:100%"">
+										The first two years of my Ph.D. have largely revolved around <a href="https://nsf.gov/awardsearch/showAward?AWD_ID=1646235&HistoricalAwards=false">TickTalk </a>, an NSF grant dedicated to developing timing APIs to simplify the development of federated, time-sensitive cyber physical systems. 
+										<br><br>											
+										Imagine a traffic management system, where sensors deployed on the ground sense vehicles passing. The traces of signal data could be analyzed to determine traffic composition, volume, etc., and aggregated to provide holistic flows of traffic movement in a city. The results would redefine how traffic lights, speed limits, and on-ramps actuate to redirect and smooth traffic flows. This is a distributed, heterogeneous, time-sensitive application, and TickTalk (and by extension, TTPython) aims to provide a language and runtime environment for these types of applications. 
+										<br><br>
+										In the summer of 2021, I created the first major version of TickTalk Python (TTPython), a language and distributed runtime environment for distributed time-sensitive applications. The 0th version of this project was created by Bob Iannucci in February of 2021, and included the initial syntax and compiler. We used elements of this system in our submission to a <a href="./ttpython-comp.html">CPS-IoT Week Student Design Competition</a>, but the tools were not fully implemented at that point. During the summer, I fixed that.
+									</p>
+								</div>
+							</section>
+
+							<section id="ttpython">
+								<div class="container">
+									<!-- <header class="major"> -->
+										<h3>TTPython</h3>
+										<p style="font-size:80%;">
+											TTPython is a language, compiler, and distributed runtime environment that represents programs as dataflow graphs such that a singular 'macroprogram' can be broken into smaller pieces and run isolated on a device within a heterogeneous distributed system. 
+											<br><br>
+											My work has been on the distributed runtime, so that devices can form a network and execute a time-sensitive, distributed application. I could speak at great length on the details and complexities of this. If anyone cares that much, I'll nudge you towards a <a href="https://youtu.be/xCLy89LLpaw">Demo Video</a> and the <a href="http://ccsg.ece.cmu.edu/ttpython/overview.html">doc pages</a> for the project, for which I developed/wrote about 85% of the content as of version 1.0.0. Whether it grows into something significant or not, time will tell, but plans are in place.
+											<br><br>
+											To me, the more intesting elements to work on were at the architectural level: defining what processes exist within a device and they interact, and defining how devices execute the distributed program. 
+											<br><br>
+											For the former, I designed the devices (called "ensembles" for reasons unimportant here) to consist of a few intercommunicating processes, each entirely isolated and reading information through a singular input queue with self-describing messages (those familiar with lots of message-passing architectures, it was technically a Kahn Process Network). Each process would handle synchronizing inputs, executing graph nodes, or propagating outputs (and any other network management tasks), respectively; this was designed to match the abstractions included in each node of the graph (called "SQs" in TickTalk parlance). I'm very fond of this interprocess communicaiton model, and find it to be extensible and predictable. 
+											<br><br> 
+											For the latter point (on how the devices execute the distributed program), the main steady-state behavior was defined already by how the graph nodes sent outputs to one another. What <i>wasn't</i> covered was how the network of devices is configured so that the graph nodes are mapped to devices in the system and graph execution was started. In short, some management-level entity (a 'runtime manager' if you will) acts as a coordinator. Devices request to join, and the runtime manager verifies and accepts them, propagating networking information to those that already connected. When ready, it sends graph nodes to devices along with how they much send outputs to, and injects a few initial values to kickstart execution. At that point, the graph executes in a totally decentralized fashion (although outputs go back to that runtime manager for logging purposes). Altogether, pretty simple (and certainly has some obvious failure cases), but I was elated to find that I could use this formulation (and the other 5k lines of Python I developed) to execute a program across a server, laptop, and raspberry pi without any special tricks.
+											<br><br>
+											I ended my commitment to the TickTalk project at the end of Summer 2021, but I'll be sure to check back in periodically to see if/how the tools I developed see continued use in what is now an <a href="https://bitbucket.org/ccsg-res/ticktalkpython/src/master/">open source project under the MIT license</a>.
+
+										</p>	
+									<!-- </header> -->
+
+								</div>
+							</section>
+
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="container">
+							<ul class="copyright">
+								<li>&copy; Reese Grimsley. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
